@@ -1,3 +1,4 @@
+/*
 const resultSort = ["스트라이크", "볼", "안타", "아웃"];
 const resultCount = {
   "스트라이크": 0,
@@ -6,7 +7,6 @@ const resultCount = {
   "아웃": 0
 };
 
-/*
 function getResult(){
   resultNum = Math.floor(Math.random() * 4);
   result = resultSort[resultNum];
@@ -49,14 +49,27 @@ function gamePlaying(){
   showCount();
 }
 */
+
 function gameStart(){
   console.log("신나는 야구시합\n1.데이터 입력\n2.데이터 출력\n");
+}
+
+function inputData(){
+  for (let i=1; i<3; i++){
+    const teamName=prompt(`${i}팀의 이름을 입력하세요"`); 
+    console.log("team Name is " + teamName)
+    for (let i=1; i<10; i++){
+      const teamMember=prompt(`${i}번 타자 정보 입력"`); 
+      console.log(i + "번 타자 " + teamMember);
+    }
+    console.log("");
+  }
 }
 
 function selectMenu(){
   const x=prompt("메뉴선택 (1 - 2)");
   if (x === "1"){
-    console.log("menu 1");
+    inputData();
   } else if (x === "2"){
     console.log("menu 2");
   } else {
