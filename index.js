@@ -52,6 +52,18 @@ function gamePlaying(){
 function gameStart(){
   console.log("신나는 야구시합\n1.데이터 입력\n2.데이터 출력\n");
 }
+
+function selectMenu(){
+  const x=prompt("메뉴선택 (1 - 2)");
+  if (x === "1"){
+    console.log("menu 1");
+  } else if (x === "2"){
+    console.log("menu 2");
+  } else {
+    selectMenu();
+  }
+
+}
 /*
 function gameOver(){
   console.log(`최종 안타수: ${resultCount.안타}`);
@@ -60,6 +72,7 @@ function gameOver(){
 */
 function main(){
   gameStart();
+  selectMenu();
 /*  while (resultCount["아웃"]<3){
     gamePlaying();
   }
