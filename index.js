@@ -14,20 +14,17 @@ function getMember(j){
   const memberData= prompt(`${j+1}번 타자 정보 입력`);
   if (!memberData.includes(",")){
     console.log("\n타자 정보는 \n'타자 이름, 타율'\n형식으로 입력해주세요.");
+    getMember(j);
   } 
   name = memberData.split(',')[0];
   prob = Number(memberData.split(',')[1]);
   if (!(prob > 0.1 && prob < 0.5)) {
     console.log("\n타율은 0.1 초과 0.5 미만의 값으로 소수 셋째자리까지 입력해주세요.\n");
+    getMember(j);
   }
   member.name = name;
   member.prob = prob;  
   return member;
-}
-
-function inputError(j){
-  console.log(INPUT_GUIDE);
-  getMember(j);
 }
 
 function inputTeamData(){
