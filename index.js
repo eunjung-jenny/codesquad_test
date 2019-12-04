@@ -156,16 +156,20 @@ function countRound(i){
 }
 
 function setup(){
-  const resultCount = {
-    "스트라이크": 0,
-    "볼": 0,
-    "안타": 0,
-    "아웃": 0
-  };
-  teams[0].count = resultCount;
-  teams[0].score = 0;
-  teams[1].count = resultCount;
-  teams[1].score = 0;
+  const resultCount = {"스트라이크": 0, "볼": 0, "안타": 0, "아웃": 0};
+  for (let i=0; i<2; i++){
+    teams[i].count = resultCount;
+    teams[i].score = 0;
+    for (let j=0; j<9; j++){
+      prob = teams[i].members[j].prob;
+      teams[i].members[j].weight = [];      
+      teams[i].members[j].weight[0] = (1-prob)/2 - 0.05;
+      teams[i].members[j].weight[1] = (1-prob)/2 - 0.05;
+      teams[i].members[j].weight[2] = prob;
+      teams[i].members[j].weight[3] = 0.1;
+    }
+  }
+  console.log(teams);
   console.log(`${teams[0].name} VS ${teams[1].name}의 시합을 시작합니다!\n`);
 }
 
