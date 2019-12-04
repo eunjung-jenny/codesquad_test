@@ -132,12 +132,15 @@ function showTeamData(){
 }
 
 function selectMenu(){
-  const x=prompt("메뉴선택 (1 - 2)");
+  const x=prompt("메뉴선택 (1 - 3)");
   if (x === "1"){
     inputTeamData();
   } else if (x === "2"){
     showTeamData();
+  } else if (x === "3"){
+    gamePlaying();
   } else {
+    console.log("다시 선택해주세요.")
     selectMenu();
   }
 
@@ -148,6 +151,22 @@ function gameOver(){
   console.log("GAME OVER");
 };
 */
+
+function countRound(i){
+  if(i%2===0){
+    console.log(`${Math.floor(i/2)+1}회초 ${teams[0].name} 공격`);
+    } else {
+    console.log(`${Math.floor(i/2)+1}회말 ${teams[1].name} 공격`)
+    }
+}
+
+function gamePlaying(){
+  console.log(`${teams[0].name} VS ${teams[1].name}의 시합을 시작합니다!\n`);
+  for (let i=0; i<12; i++){
+    countRound(i);
+  }
+}
+
 function main(){
   gameStart();
   selectMenu();
