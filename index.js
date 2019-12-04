@@ -50,6 +50,8 @@ function gamePlaying(){
 }
 */
 
+const INPUT_GUIDE = "\n타자 정보는 \n'타자 이름, 타율'\n형식으로 입력해주세요.\n타율은 0.1 초과 0.5 미만의 값으로 소수 셋째자리까지 입력해주세요.\n"
+
 //let teams = [];
 let teams = [
   {name: "코드",
@@ -70,20 +72,43 @@ function gameStart(){
   console.log("신나는 야구시합\n1.데이터 입력\n2.데이터 출력\n");
 }
 
+function getTeamName(i){
+  const teamName = prompt(`${i+1}팀의 이름을 입력하세요`); 
+  return teamName;
+}
+
+function inputError(j){
+  console.log(INPUT_GUIDE);
+  getMember(j);
+}
+
+function getMember(j){
+  member = {};
+  const memberData= prompt(`${j+1}번 타자 정보 입력`);
+  if (!memberData.includes(",")){
+    inputError(j);
+  } 
+  name = memberData.split(',')[0];
+  prob = Number(memberData.split(',')[1]);
+  if (!(prob > 0.1 && prob < 0.5)) {
+    inputError(j);
+  }
+  member.name = name;
+  member.prob = prob;  
+  return member;
+}
+
 function inputTeamData(){
   teams = [];
   for (let i=0; i<2; i++){
-    team = {};
     members = [];
-    const teamName = prompt(`${i+1}팀의 이름을 입력하세요`); 
-    team.name = teamName;
+    teamName = getTeamName(i);
+    console.log(INPUT_GUIDE);
     for (let j=0; j<9; j++){
-      member = {};
-      const memberData= prompt(`${j+1}번 타자 정보 입력`).split(',');
-      member.name = memberData[0];
-      member.prob = parseFloat(memberData[1].trim());
-      members.push(member);
+      members.push(getMember(j));
     }
+    team = {};
+    team.name = teamName;
     team.members = members;
     teams.push(team);
     console.log("");
