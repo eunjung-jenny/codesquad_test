@@ -1,21 +1,10 @@
 
-const resultSort = ["스트라이크", "볼", "안타", "아웃"];
-/*
-function gamePlaying(){
-  result = getResult();
-  counting(result);
-  judge(result);
-  showCount();
-}
-*/
-
 const INPUT_GUIDE = "\n타자 정보는 \n'타자 이름, 타율'\n형식으로 입력해주세요.\n타율은 0.1 초과 0.5 미만의 값으로 소수 셋째자리까지 입력해주세요.\n"
 
-//let teams = [];
 let teams = [
   {name: "코드",
   members: 
-    [{name: "윤지수", prob: 0.100},
+    [{name: "윤지수", prob: 0.499},
      {name: "김정", prob: 0.482}, {name: "박서준", prob: 0.421}, {name: "김정", prob: 0.482}, {name: "박서준", prob: 0.421}, {name: "김정", prob: 0.482}, {name: "박서준", prob: 0.421}, {name: "김정", prob: 0.482}, {name: "박서준", prob: 0.421}
     ]
   },
@@ -102,18 +91,11 @@ function selectMenu(){
     console.log("다시 선택해주세요.")
     selectMenu();
   }
-
 }
-/*
-function gameOver(){
-  console.log(`최종 안타수: ${resultCount.안타}`);
-  console.log("GAME OVER");
-};
-*/
 
 function determineTurn(round){
   halfList = ["초", "말"];
-  console.log(`${Math.floor(round/2)+1}회${halfList[round%2]} ${teams[round%2].name} 공격\n`);
+  console.log(`${Math.floor(round/2)+1}회${halfList[round%2]} ${teams[round%2].name}의 공격\n`);
   return teams[round%2];
 }
 
@@ -137,13 +119,13 @@ function setup(){
 function getResult(weight){
   randNum = Math.random();
   if(randNum<weight[0]){
-    return resultSort[0];
+    return "스트라이크";
   } else if (randNum<weight[0]+weight[1]){
-    return resultSort[1];
+    return "볼";
   } else if (randNum<1-weight[3]){
-    return resultSort[2];
+    return "안타";
   } else {
-    return resultSort[3];
+    return "아웃";
   }  
 }
 
@@ -184,27 +166,32 @@ function hitTheBall(hittingTeam, hitterNum){
   }
 }
 
+function wrapUpGame(){
+  console.log("경기 종료\n");
+  console.log(`${teams[0].name} VS ${teams[1].name}`)
+  console.log(`${teams[0].score} : ${teams[1].score}`);
+  console.log("Thank You!");
+};
+
 function gamePlaying(){
   setup();
-  for (let round=0; round<12; round++){
+  for (let round=0; round<4; round++){
     hittingTeam = determineTurn(round);
     for (let hitter=0; hittingTeam.count["아웃"]<3; hitter++){
       hitTheBall(hittingTeam, hitter%9);
     }
-    hittingTeam.count["아웃"]=0;
     if(hittingTeam.count["안타"]>3){
       hittingTeam.score = hittingTeam.score + hittingTeam.count["안타"]-3;
     }
+    hittingTeam.count["아웃"]=0;
+    hittingTeam.count["안타"]=0;
   }
+  wrapUpGame();
 }
 
 function main(){
   gameStart();
   selectMenu();
-/*  while (resultCount["아웃"]<3){
-    gamePlaying();
-  }
-  gameOver();*/
 }
 
 main();
