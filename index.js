@@ -50,18 +50,27 @@ function gamePlaying(){
 }
 */
 
+const teams = [];
+
 function gameStart(){
   console.log("신나는 야구시합\n1.데이터 입력\n2.데이터 출력\n");
 }
 
 function inputData(){
-  for (let i=1; i<3; i++){
-    const teamName=prompt(`${i}팀의 이름을 입력하세요"`); 
-    console.log("team Name is " + teamName)
-    for (let i=1; i<10; i++){
-      const teamMember=prompt(`${i}번 타자 정보 입력"`); 
-      console.log(i + "번 타자 " + teamMember);
+  for (let i=0; i<2; i++){
+    team = {};
+    members = [];
+    const teamName = prompt(`${i+1}팀의 이름을 입력하세요"`); 
+    team.name = teamName;
+    for (let i=0; i<2; i++){
+      member = {};
+      const memberData= prompt(`${i+1}번 타자 정보 입력"`).split(',');
+      member.name = memberData[0];
+      member.prob = parseFloat(memberData[1].trim());
+      members.push(member);
     }
+    team.members = members;
+    teams.push(team);
     console.log("");
   }
 }
