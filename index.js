@@ -1,42 +1,6 @@
 
 const resultSort = ["스트라이크", "볼", "안타", "아웃"];
 /*
-
-function getResult(){
-  resultNum = Math.floor(Math.random() * 4);
-  result = resultSort[resultNum];
-  return result;
-}
-
-function counting(){
-  resultCount[result] = resultCount[result] + 1;
-}
-
-function judge(result){
-  if (result === "스트라이크" || result === "볼"){
-    console.log(`${result}!`);
-    if(resultCount["스트라이크"] === 3 || resultCount["볼"] === 4){
-      resultCount["아웃"] = resultCount["아웃"] + 1;
-      judge("아웃");
-    }
-  } else if (result === "안타"){
-    console.log("안타! 다음 타자가 타석에 입장했습니다.");
-  } else if (result === "아웃"){
-    resultCount["스트라이크"] = 0;
-    resultCount["볼"] = 0;
-    if (resultCount["아웃"] < 3){
-      console.log("아웃! 다음 타자가 타석에 입장했습니다.");
-    } else {
-      console.log("아웃!");
-    }
-  }
-}
-
-function showCount(){
-  console.log(`${resultCount["스트라이크"]}S ${resultCount["볼"]}B ${resultCount["아웃"]}O \n`) 
-}
-
-
 function gamePlaying(){
   result = getResult();
   counting(result);
@@ -51,13 +15,13 @@ const INPUT_GUIDE = "\n타자 정보는 \n'타자 이름, 타율'\n형식으로 
 let teams = [
   {name: "코드",
   members: 
-    [{name: "윤지수", prob: 0.499},
+    [{name: "윤지수", prob: 0.100},
      {name: "김정", prob: 0.482}, {name: "박서준", prob: 0.421}, {name: "김정", prob: 0.482}, {name: "박서준", prob: 0.421}, {name: "김정", prob: 0.482}, {name: "박서준", prob: 0.421}, {name: "김정", prob: 0.482}, {name: "박서준", prob: 0.421}
     ]
   },
   {name: "스쿼드",
   members: 
-    [{name: "정호영", prob: 0.222},
+    [{name: "정호영", prob: 0.490},
      {name: "피오", prob: 0.452}, {name: "공유", prob: 0.382}, {name: "김정", prob: 0.482}, {name: "박서준", prob: 0.421}, {name: "김정", prob: 0.482}, {name: "박서준", prob: 0.421}, {name: "김정", prob: 0.482}, {name: "박서준", prob: 0.421}
     ]
   }
@@ -149,7 +113,7 @@ function gameOver(){
 
 function determineTurn(round){
   halfList = ["초", "말"];
-  console.log(`${Math.floor(i/2)+1}회${halfList[round%2]} ${teams[round$2].name} 공격\n`);
+  console.log(`${Math.floor(round/2)+1}회${halfList[round%2]} ${teams[round%2].name} 공격\n`);
   return teams[round%2];
 }
 
@@ -170,10 +134,67 @@ function setup(){
   console.log(`${teams[0].name} VS ${teams[1].name}의 시합을 시작합니다!\n`);
 }
 
+function getResult(weight){
+  randNum = Math.random();
+  if(randNum<weight[0]){
+    return resultSort[0];
+  } else if (randNum<weight[0]+weight[1]){
+    return resultSort[1];
+  } else if (randNum<1-weight[3]){
+    return resultSort[2];
+  } else {
+    return resultSort[3];
+  }  
+}
+
+function showCount(count){
+  console.log(`${count["스트라이크"]}S ${count["볼"]}B ${count["아웃"]}O \n`) 
+}
+
+function judge(count, result){
+  if (result === "스트라이크" || result === "볼"){
+    console.log(`${result}!`);
+    if(count["스트라이크"] === 3 || count["볼"] === 4){
+      count["아웃"] = count["아웃"] + 1;
+      judge(count, "아웃");
+      return true;
+    }
+    return false;
+  } else if (result === "안타" || result === "아웃"){
+    console.log(`${result}!`);
+    count["스트라이크"] = 0;
+    count["볼"] = 0;
+    return true;
+  }
+}
+
+function counting(count, result){
+  count[result] = count[result] + 1;
+}
+
+function hitTheBall(hittingTeam, hitterNum){
+  hitter = hittingTeam.members[hitterNum];
+  console.log(`${hitterNum+1}번 ${hitter.name}`);
+  changeHitter = false;
+  while(changeHitter === false){
+    result = getResult(hitter.weight);
+    counting(hittingTeam.count, result);
+    changeHitter = judge(hittingTeam.count, result);
+    showCount(hittingTeam.count);
+  }
+}
+
 function gamePlaying(){
   setup();
   for (let round=0; round<12; round++){
-    determineTurn(round)
+    hittingTeam = determineTurn(round);
+    for (let hitter=0; hittingTeam.count["아웃"]<3; hitter++){
+      hitTheBall(hittingTeam, hitter%9);
+    }
+    hittingTeam.count["아웃"]=0;
+    if(hittingTeam.count["안타"]>3){
+      hittingTeam.score = hittingTeam.score + hittingTeam.count["안타"]-3;
+    }
   }
 }
 
