@@ -1,9 +1,18 @@
+const resultSort = ["스트라이크", "볼", "안타", "아웃"];
 const resultCount = {
   "스트라이크": 0,
   "볼": 0,
   "안타": 0,
-  "아웃": 3
+  "아웃": 0
 };
+
+function gamePlaying(){
+  resultNum = Math.floor(Math.random() * 4);
+  result = resultSort[resultNum];
+  resultCount[result] = resultCount[result] + 1;
+  console.log(`${result}!`);
+  console.log(`${resultCount["스트라이크"]}S ${resultCount["볼"]}B ${resultCount["아웃"]}O`);
+}
 
 function gameStart(){
   console.log("신나는 야구 게임!");
@@ -18,7 +27,7 @@ function gameOver(){
 function main(){
   gameStart();
   while (resultCount["아웃"]<3){
-    
+    gamePlaying();
   }
   gameOver();
 }
