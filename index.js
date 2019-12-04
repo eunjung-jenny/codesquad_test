@@ -50,13 +50,14 @@ function gamePlaying(){
 }
 */
 
-const teams = [];
+//const teams = [];
+const teams = [{name: "코드", members: [{name: "윤지수", prob: 0.499}, {name: "김정", prob: 0.482}, {name: "박서준", prob: 0.421}]}, {name: "스쿼드", members: [{name: "정호영", prob: 0.222}, {name: "피오", prob: 0.452}, {name: "공유", prob: 0.382}]}]
 
 function gameStart(){
   console.log("신나는 야구시합\n1.데이터 입력\n2.데이터 출력\n");
 }
 
-function inputData(){
+function inputTeamData(){
   for (let i=0; i<2; i++){
     team = {};
     members = [];
@@ -75,12 +76,24 @@ function inputData(){
   }
 }
 
+function showTeamData(){
+  for (let i=0; i<2; i++){
+    team = teams[i];
+    console.log(`${team.name} 팀 정보`)
+    for (let j=0; j<3; j++){
+      member = team.members[j]
+      console.log(`${j+1}번 ${member.name}, ${member.prob}`)
+    }
+    console.log("");
+  }
+}
+
 function selectMenu(){
   const x=prompt("메뉴선택 (1 - 2)");
   if (x === "1"){
-    inputData();
+    inputTeamData();
   } else if (x === "2"){
-    console.log("menu 2");
+    showTeamData();
   } else {
     selectMenu();
   }
