@@ -147,12 +147,10 @@ function gameOver(){
 };
 */
 
-function countRound(i){
-  if(i%2===0){
-    console.log(`${Math.floor(i/2)+1}회초 ${teams[0].name} 공격`);
-  } else {
-    console.log(`${Math.floor(i/2)+1}회말 ${teams[1].name} 공격`)
-  }
+function determineTurn(round){
+  halfList = ["초", "말"];
+  console.log(`${Math.floor(i/2)+1}회${halfList[round%2]} ${teams[round$2].name} 공격\n`);
+  return teams[round%2];
 }
 
 function setup(){
@@ -174,8 +172,8 @@ function setup(){
 
 function gamePlaying(){
   setup();
-  for (let i=0; i<12; i++){
-    countRound(i);
+  for (let round=0; round<12; round++){
+    determineTurn(round)
   }
 }
 
