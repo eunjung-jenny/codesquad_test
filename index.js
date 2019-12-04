@@ -28,7 +28,11 @@ function judge(result){
   } else if (result === "아웃"){
     resultCount["스트라이크"] = 0;
     resultCount["볼"] = 0;
-    console.log("아웃! 다음 타자가 타석에 입장했습니다.");
+    if (resultCount["아웃"] < 3){
+      console.log("아웃! 다음 타자가 타석에 입장했습니다.");
+    } else {
+      console.log("아웃!");
+    }
   }
 }
 
