@@ -169,7 +169,6 @@ function setup(){
       teams[i].members[j].weight[3] = 0.1;
     }
   }
-  console.log(teams);
   console.log(`${teams[0].name} VS ${teams[1].name}의 시합을 시작합니다!\n`);
 }
 
