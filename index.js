@@ -6,6 +6,7 @@ const resultCount = {
   "아웃": 0
 };
 
+/*
 function getResult(){
   resultNum = Math.floor(Math.random() * 4);
   result = resultSort[resultNum];
@@ -47,23 +48,22 @@ function gamePlaying(){
   judge(result);
   showCount();
 }
-
+*/
 function gameStart(){
-  console.log("신나는 야구 게임!");
-  console.log("첫 번째 타자가 타석에 입장했습니다. \n");
+  console.log("신나는 야구시합\n1.데이터 입력\n2.데이터 출력\n");
 }
-
+/*
 function gameOver(){
   console.log(`최종 안타수: ${resultCount.안타}`);
   console.log("GAME OVER");
 };
-
+*/
 function main(){
   gameStart();
-  while (resultCount["아웃"]<3){
+/*  while (resultCount["아웃"]<3){
     gamePlaying();
   }
-  gameOver();
+  gameOver();*/
 }
 
 main();
