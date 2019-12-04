@@ -16,11 +16,32 @@ function counting(){
   resultCount[result] = resultCount[result] + 1;
 }
 
+function judge(result){
+  if (result === "스트라이크" || result === "볼"){
+    console.log(`${result}!`);
+    if(resultCount["스트라이크"] === 3 || resultCount["볼"] === 4){
+      resultCount["아웃"] = resultCount["아웃"] + 1;
+      judge("아웃");
+    }
+  } else if (result === "안타"){
+    console.log("안타! 다음 타자가 타석에 입장했습니다.");
+  } else if (result === "아웃"){
+    resultCount["스트라이크"] = 0;
+    resultCount["볼"] = 0;
+    console.log("아웃! 다음 타자가 타석에 입장했습니다.");
+  }
+}
+
+function showCount(){
+  console.log(`${resultCount["스트라이크"]}S ${resultCount["볼"]}B ${resultCount["아웃"]}O \n`) 
+}
+
+
 function gamePlaying(){
   result = getResult();
   counting(result);
-  console.log(`${result}!`);
-  console.log(`${resultCount["스트라이크"]}S ${resultCount["볼"]}B ${resultCount["아웃"]}O`);
+  judge(result);
+  showCount();
 }
 
 function gameStart(){
