@@ -6,10 +6,19 @@ const resultCount = {
   "아웃": 0
 };
 
-function gamePlaying(){
+function getResult(){
   resultNum = Math.floor(Math.random() * 4);
   result = resultSort[resultNum];
+  return result;
+}
+
+function counting(){
   resultCount[result] = resultCount[result] + 1;
+}
+
+function gamePlaying(){
+  result = getResult();
+  counting(result);
   console.log(`${result}!`);
   console.log(`${resultCount["스트라이크"]}S ${resultCount["볼"]}B ${resultCount["아웃"]}O`);
 }
