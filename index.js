@@ -1,11 +1,6 @@
-/*
+
 const resultSort = ["스트라이크", "볼", "안타", "아웃"];
-const resultCount = {
-  "스트라이크": 0,
-  "볼": 0,
-  "안타": 0,
-  "아웃": 0
-};
+/*
 
 function getResult(){
   resultNum = Math.floor(Math.random() * 4);
@@ -155,13 +150,27 @@ function gameOver(){
 function countRound(i){
   if(i%2===0){
     console.log(`${Math.floor(i/2)+1}회초 ${teams[0].name} 공격`);
-    } else {
+  } else {
     console.log(`${Math.floor(i/2)+1}회말 ${teams[1].name} 공격`)
-    }
+  }
+}
+
+function setup(){
+  const resultCount = {
+    "스트라이크": 0,
+    "볼": 0,
+    "안타": 0,
+    "아웃": 0
+  };
+  teams[0].count = resultCount;
+  teams[0].score = 0;
+  teams[1].count = resultCount;
+  teams[1].score = 0;
+  console.log(`${teams[0].name} VS ${teams[1].name}의 시합을 시작합니다!\n`);
 }
 
 function gamePlaying(){
-  console.log(`${teams[0].name} VS ${teams[1].name}의 시합을 시작합니다!\n`);
+  setup();
   for (let i=0; i<12; i++){
     countRound(i);
   }
